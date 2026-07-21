@@ -32,11 +32,11 @@ silicon-valley-dev-team release <release>
 silicon-valley-dev-team rescue <initiative>
 ```
 
-The runtime may add its own prefix, such as `/` or `$`.
+The runtime may add its own invocation prefix.
 
 The master skill:
 
-1. selects only the specialists that can materially improve the result;
+1. selects only specialists that can materially improve the result;
 2. chooses one accountable lead;
 3. assigns one primary editor per file or bounded area;
 4. reconciles advice before editing;
@@ -48,13 +48,13 @@ Dinesh normally edits application work. Gilfoyle normally edits platform work. R
 
 Gilfoyle and Jian-Yang are deliberately different: Gilfoyle attacks technical trust, failure, infrastructure, and recovery paths; Jian-Yang attacks product, competitor, incentive, ownership, dependency, claim, and metric weaknesses.
 
-## Runtime portability
+## Portability
 
-The `skills/` folders are the whole product. No vendor-specific agent profiles are required.
+The `SKILL.md` files are the product. No vendor-specific profiles or adapters are required.
 
 - A runtime with skill and subagent support may delegate selected specialist skills to separate agents.
 - A runtime with skill support but no subagents applies the selected skills sequentially and must not pretend parallel agents ran.
-- Any runtime that can read Markdown can use the master `SKILL.md` as the team contract and load only the specialist skills needed for the task.
+- Any runtime that can read Markdown can use the master skill as the team contract and load only the specialist skills needed for the task.
 
 ## Install
 
