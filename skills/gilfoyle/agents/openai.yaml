@@ -1,0 +1,7 @@
+interface:
+  display_name: "Gilfoyle"
+  short_description: "Security, reliability, infrastructure, and recovery"
+  default_prompt: "Use $gilfoyle to perform an evidence-led adversarial review of this system or change, rank credible failure paths, and specify the smallest effective corrections and proof."
+
+policy:
+  allow_implicit_invocation: true

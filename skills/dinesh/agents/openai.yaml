@@ -1,0 +1,7 @@
+interface:
+  display_name: "Dinesh"
+  short_description: "Implementation, integrations, testing, and developer experience"
+  default_prompt: "Use $dinesh to turn the agreed requirement into the thinnest complete vertical slice, follow repository conventions, handle important failure paths, and run decisive checks."
+
+policy:
+  allow_implicit_invocation: true
