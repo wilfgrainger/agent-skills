@@ -1,0 +1,7 @@
+interface:
+  display_name: "Jared"
+  short_description: "Product delivery, ownership, planning, and launch readiness"
+  default_prompt: "Use $jared to turn this initiative into an observable customer outcome with bounded scope, clear owners, an evidence-led sequence, material risks, and the next proof point."
+
+policy:
+  allow_implicit_invocation: true
