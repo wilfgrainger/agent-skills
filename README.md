@@ -34,15 +34,7 @@ silicon-valley-dev-team rescue <initiative>
 
 The runtime may add its own invocation prefix.
 
-The master skill:
-
-1. selects only specialists that can materially improve the result;
-2. chooses one accountable lead;
-3. assigns one primary editor per file or bounded area;
-4. reconciles advice before editing;
-5. reviews the actual result and evidence;
-6. corrects validated findings and reruns decisive checks;
-7. returns one coherent outcome.
+The master skill selects only specialists that can materially improve the result, chooses one accountable lead, assigns one primary editor per file or bounded area, reconciles advice before editing, reviews the actual result, corrects validated findings, reruns decisive checks, and returns one coherent outcome.
 
 Dinesh normally edits application work. Gilfoyle normally edits platform work. Richard may build a narrow prototype or architecture record. Jared may edit operating documents. Jian-Yang is always read-only.
 
@@ -57,8 +49,6 @@ The `SKILL.md` files are the product. No vendor-specific profiles or adapters ar
 - Any runtime that can read Markdown can use the master skill as the team contract and load only the specialist skills needed for the task.
 
 ## Install
-
-Install the master and specialists with an Agent Skills-compatible installer:
 
 ```bash
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/silicon-valley-dev-team
