@@ -1,9 +1,0 @@
-# Merge this section into ~/.codex/config.toml.
-# Six threads allow the parent lead plus the five specialists to remain open.
-# The master skill selects only the specialists needed for each task.
-# Keep depth at one so specialists cannot recursively fan out another team.
-
-[agents]
-max_threads = 6
-max_depth = 1
-interrupt_message = true
