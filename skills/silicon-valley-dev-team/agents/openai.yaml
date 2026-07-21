@@ -1,7 +1,0 @@
-interface:
-  display_name: "Silicon Valley Dev Team"
-  short_description: "Orchestrate the five specialists as one serious delivery team"
-  default_prompt: "Use $silicon-valley-dev-team to select the smallest relevant specialist team, choose one accountable lead and one primary editor per area, reconcile advice before editing, implement and test the complete result, run independent domain and adversarial review, correct validated findings, and return one evidence-based outcome."
-
-policy:
-  allow_implicit_invocation: true
