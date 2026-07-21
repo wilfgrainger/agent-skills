@@ -1,8 +1,0 @@
-# Merge this section into ~/.codex/config.toml.
-# Five threads allow the lead agent plus the four specialists to remain open.
-# Keep depth at one so specialists cannot recursively fan out another team.
-
-[agents]
-max_threads = 5
-max_depth = 1
-interrupt_message = true

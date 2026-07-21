@@ -1,99 +1,78 @@
 # Agent Skills
 
-A small collection of practical agent skills for software engineering and product delivery.
+Portable `SKILL.md` operating methods for software engineering, product delivery, company operations, and adversarial review.
 
-Each skill is designed as an operating method, not a novelty persona. The four *Silicon Valley*-inspired skills translate recognisable character strengths into useful workflows while explicitly rejecting their harmful or comic failure modes.
+The repository contains five specialists inspired by HBO's *Silicon Valley*, one master skill that coordinates them, and Cave Pony for simplicity and proof. They are professional methods, not character impersonations. Harmful or comic behaviour is converted into failure modes to resist.
 
-This is an unofficial fan-made project. It is not affiliated with or endorsed by HBO, Warner Bros. Discovery, the programme's creators, cast, or rights holders. Character names are used only to identify the source of inspiration. The skills do not reproduce scripts, dialogue, or attempt actor impersonation.
+This is an unofficial fan-made project. It is not affiliated with or endorsed by HBO, Warner Bros. Discovery, the programme's creators, cast, or rights holders.
 
 ## Skills
 
-| Skill | Best used for | Core question |
+| Skill | Professional role | Best used for |
 |---|---|---|
-| [Cave Pony](skills/cave-pony/) | Minimal, direct engineering with enough proof | What is the smallest correct change? |
-| [Richard Hendricks](skills/richard-hendricks/) | Architecture, algorithms, performance, compression, scaling | Is there a better representation or boundary? |
-| [Gilfoyle](skills/gilfoyle/) | Infrastructure, security, reliability, incidents, adversarial review | How does this fail, and can we recover? |
-| [Dinesh](skills/dinesh/) | Feature implementation, integrations, APIs, UI and developer experience | Does the complete path actually work? |
-| [Jared](skills/jared/) | Product operations, planning, launches, ownership and stakeholder clarity | Who owns the next valuable outcome? |
+| [Silicon Valley Dev Team](skills/silicon-valley-dev-team/) | Master orchestrator | Selecting the smallest relevant team, assigning one lead and editor per area, reconciling advice, review, testing, and final delivery |
+| [Richard Hendricks](skills/richard-hendricks/) | Technical founder and CTO | Technical direction, architecture, algorithms, performance, scaling, pivots, and technology ethics |
+| [Gilfoyle](skills/gilfoyle/) | VP Architecture and platform lead | Infrastructure, networks, security, reliability, deployments, incidents, capacity, and recovery |
+| [Dinesh](skills/dinesh/) | VP Engineering and application-delivery lead | Application delivery, APIs, UI, integrations, migrations, testing, maintainability, and developer experience |
+| [Jared](skills/jared/) | COO and delivery lead | Customer outcomes, product and business operations, commitments, planning, launches, ownership, and rescue |
+| [Jian-Yang](skills/jian-yang/) | Read-only adversarial product and ecosystem reviewer | Competitors, loopholes, incentive abuse, ownership gaps, hostile dependencies, unsupported claims, copyability, and metric gaming |
+| [Cave Pony](skills/cave-pony/) | Simplicity and proof coach | Removing unnecessary scope, code, abstraction, and narration while preserving correctness |
 
-## Codex personal dev team
+See [character role coverage](docs/CHARACTER_ROLE_COVERAGE.md) for the source-to-professional mapping and role boundaries.
 
-The repository includes ready-to-copy Codex custom-agent profiles and lead-agent instructions that combine the four *Silicon Valley*-inspired skills into a controlled delivery team:
+## Use the team
+
+Invoke the master skill when work crosses roles:
 
 ```text
-Jared defines the outcome, scope, owners, and sequence
-Richard resolves architecture and difficult technical trade-offs
-Dinesh implements and tests the complete vertical slice
-Gilfoyle reviews the actual diff for failure, security, and recovery
-The main Codex thread remains accountable for decisions and synthesis
+silicon-valley-dev-team deliver <customer outcome>
+silicon-valley-dev-team review <repository, PR, plan, or product>
+silicon-valley-dev-team architecture <decision>
+silicon-valley-dev-team release <release>
+silicon-valley-dev-team rescue <initiative>
 ```
 
-See [Use the Silicon Valley skills as a Codex dev team](docs/CODEX_PERSONAL_DEV_TEAM.md) for Windows, WSL, Linux, and macOS setup, verification, worktree guidance, and copy-paste team prompts.
+The runtime may add its own invocation prefix.
 
-The supporting files are under [`codex/`](codex/):
+The master skill selects only specialists that can materially improve the result, chooses one accountable lead, assigns one primary editor per file or bounded area, reconciles advice before editing, reviews the actual result, corrects validated findings, reruns decisive checks, and returns one coherent outcome.
 
-- `AGENTS.md` — global team-lead and handoff rules;
-- `agents/*.toml` — the four spawnable custom-agent profiles;
-- `config.toml.example` — bounded concurrency with no recursive fan-out.
+Dinesh normally edits application work. Gilfoyle normally edits platform work. Richard may build a narrow prototype or architecture record. Jared may edit operating documents. Jian-Yang is always read-only.
 
-## Install individual skills
+Gilfoyle and Jian-Yang are deliberately different: Gilfoyle attacks technical trust, failure, infrastructure, and recovery paths; Jian-Yang attacks product, competitor, incentive, ownership, dependency, claim, and metric weaknesses.
 
-Install a skill directly from its folder with an Agent Skills-compatible installer:
+## Portability
+
+The `SKILL.md` files are the product. No vendor-specific profiles or adapters are required.
+
+- A runtime with skill and subagent support may delegate selected specialist skills to separate agents.
+- A runtime with skill support but no subagents applies the selected skills sequentially and must not pretend parallel agents ran.
+- Any runtime that can read Markdown can use the master skill as the team contract and load only the specialist skills needed for the task.
+
+## Install
 
 ```bash
+npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/silicon-valley-dev-team
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/richard-hendricks
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/gilfoyle
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/dinesh
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/jared
+npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/jian-yang
 ```
 
-For Codex, personal skills can instead be copied or symlinked into `~/.agents/skills/`. The team setup guide provides exact commands. Installations tracking `main` receive future changes; pin to a tag or commit when reproducibility matters.
+Or copy or symlink the skill folders into the personal or project skill directory supported by your runtime.
 
-## Choosing a skill
-
-Use one lead skill for a task:
-
-- Start with **Richard** when the hard part is the technical model or dominant bottleneck.
-- Start with **Gilfoyle** when the hard part is trust, failure, operations, or recovery.
-- Start with **Dinesh** when the design is understood and the hard part is getting the full implementation path working.
-- Start with **Jared** when the hard part is ownership, priorities, sequencing, launch, or communication.
-- Start with **Cave Pony** when the main risk is unnecessary scope, code, abstraction, or narration.
-
-Skills may hand work to one another, but avoid running all of them as persistent personalities. A useful sequence for a substantial feature is:
-
-```text
-Jared defines the outcome and ownership
-Richard resolves the hard architecture
-Dinesh implements the vertical slice
-Gilfoyle challenges failure and recovery
-Cave Pony removes anything that did not earn its place
-```
-
-## Codex invocation
-
-In Codex CLI or the IDE extension, run `/skills` to browse installed skills or type `$` to mention one explicitly:
-
-```text
-$richard-hendricks design <system>
-$richard-hendricks optimize <bottleneck>
-$gilfoyle audit <system>
-$gilfoyle incident <service>
-$dinesh build <feature>
-$dinesh integrate <components>
-$jared plan <initiative>
-$jared launch <release>
-```
-
-Each `SKILL.md` contains its activation rules, modes, execution loop, decision rules, output contract, boundaries, and completion test.
+Invoke one specialist directly when the problem clearly fits one role. Use Cave Pony as a final simplification lens, not as another standing team member.
 
 ## Design principles
 
-- Skills must improve decisions and execution, not merely change tone.
-- Character inspiration is limited to broad traits and working patterns.
-- Every skill names the failure modes it must resist.
-- Evidence, safety, privacy, accessibility, and truthful reporting outrank persona consistency.
-- Skills should have distinct activation boundaries and useful completion criteria.
-- Humour may make the method memorable; it must not make the work hostile.
+- Improve decisions and execution, not merely tone.
+- Keep the user as product owner and final decision-maker.
+- Keep one parent agent accountable for integration and truthfulness.
+- Use one primary editor per file or bounded area.
+- Keep Jian-Yang read-only and defensive.
+- Evidence, safety, privacy, accessibility, legal obligations, and truthful reporting outrank character flavour.
+- Humour may make the skills memorable; it must never make the work hostile or vague.
+- Every skill must remain useful after its character name is removed.
 
 ## Licence
 

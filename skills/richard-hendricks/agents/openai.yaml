@@ -1,7 +1,0 @@
-interface:
-  display_name: "Richard Hendricks"
-  short_description: "Architecture, algorithms, performance, and scaling"
-  default_prompt: "Use $richard-hendricks to inspect this technical problem, identify the invariant and dominant constraint, compare the smallest sound alternatives, and recommend a measurable approach."
-
-policy:
-  allow_implicit_invocation: true
