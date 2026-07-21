@@ -2,28 +2,50 @@
 
 This setup gives Codex four spawnable specialist agents:
 
-- **Jared** — delivery lead and product operations
-- **Richard** — architecture and algorithms
-- **Dinesh** — implementation and integration
-- **Gilfoyle** — security, reliability, and adversarial review
+- **Jared** — COO, business advisor, product operations, and delivery lead
+- **Richard** — technical founder and CTO
+- **Dinesh** — VP Engineering and application-delivery lead
+- **Gilfoyle** — VP Architecture, platform, security, and reliability lead
 
-The television programme supplies memorable names. The checked-in skills and agent profiles supply the professional behaviour. They do not impersonate the characters or reproduce dialogue.
+The television programme supplies memorable names and broad role inspiration. The checked-in skills and agent profiles supply professional behaviour. They do not impersonate the characters, reproduce dialogue, or import their misconduct.
+
+This is a serious development team. The humour budget is small; the evidence standard is not.
 
 ## How the pieces fit
 
 Codex uses three separate layers:
 
-1. **Skills** describe the specialist methods. Codex discovers personal skills in `~/.agents/skills/`.
+1. **Skills** describe each specialist's operating method. Codex discovers personal skills in `~/.agents/skills/`.
 2. **Custom agents** make those specialists independently spawnable. Personal agent profiles live in `~/.codex/agents/`.
-3. **AGENTS.md** tells the main Codex thread how to act as team lead and when to delegate.
+3. **AGENTS.md** tells the parent Codex thread how to act as accountable engineering lead, select a task-shaped team, control editing, reconcile findings, and report evidence.
 
 Do not replace the skills with four long prompts. Skills use progressive loading: Codex initially sees their names and descriptions, then loads the full `SKILL.md` only when selected.
+
+The user remains product owner and final decision-maker. The parent Codex thread remains accountable for integration and truthfulness.
+
+## Role model
+
+| Specialist | Accountable for | Usually read-only when |
+|---|---|---|
+| Jared | Customer outcome, product and business operations, commitments, ownership, sequence, launch, stakeholder communication, project rescue | The task is purely technical and already bounded |
+| Richard | Technical strategy, architecture, algorithms, performance, major pivots, product-platform coherence, technology ethics | The design is conventional and already decided |
+| Dinesh | Application engineering, APIs, UI, services, integrations, migrations, code quality, tests, developer experience | Another specialist owns a bounded platform-only change |
+| Gilfoyle | Platform, infrastructure, networks, CI/CD, security, reliability, observability, incidents, capacity, rollback, restore | The task has no material platform, security, or operational consequence |
+
+One specialist is not permanently “above” the others. Leadership follows the work:
+
+- Jared leads cross-functional operating and delivery problems.
+- Richard leads technical-direction problems.
+- Dinesh leads application-engineering delivery.
+- Gilfoyle leads platform, security, reliability, and incident work.
+
+The parent thread chooses the lead, enforces boundaries, and makes the final synthesis.
 
 ## Recommended client
 
 The ChatGPT desktop app provides the clearest experience because it shows subagent threads and supports Git worktrees. Codex CLI and the IDE extension use the same skills, custom agents, and `AGENTS.md` setup.
 
-For substantial work, use a worktree per task or branch. This lets the team work without disturbing your active checkout. Keep one primary editing agent per worktree.
+For substantial work, use a worktree per task or branch. This lets the team work without disturbing your active checkout. Keep one primary editing agent per file or tightly bounded area.
 
 ## 1. Clone or update the skills repository
 
@@ -118,7 +140,7 @@ Each TOML file defines one custom agent with a narrow description and developer 
 
 Codex reads `~/.codex/AGENTS.md` before work in every repository.
 
-First check whether you already have one:
+First check whether you already have one.
 
 ### Windows PowerShell
 
@@ -133,7 +155,7 @@ Test-Path $globalAgents
 test -f "$HOME/.codex/AGENTS.md" && echo exists || echo missing
 ```
 
-When the file is missing, copy the supplied template:
+When the file is missing, copy the supplied template.
 
 ### Windows PowerShell
 
@@ -157,7 +179,7 @@ Repository-level `AGENTS.md` files still apply. More specific instructions close
 
 ## 5. Configure bounded subagent concurrency
 
-Codex defaults already permit direct subagents. The supplied configuration makes the intended team shape explicit: one lead plus four specialists, with no recursive fan-out.
+Codex defaults already permit direct subagents. The supplied configuration makes the intended team shape explicit: one parent lead plus up to four specialists, with no recursive fan-out.
 
 Merge this into `~/.codex/config.toml`:
 
@@ -192,10 +214,10 @@ jared
 Then ask:
 
 ```text
-List the custom agents available to you and summarize the personal development team instructions you loaded. Do not change files.
+List the custom agents available to you and summarise the personal development team instructions you loaded. Do not change files.
 ```
 
-The response should identify `jared`, `richard_hendricks`, `dinesh`, and `gilfoyle`, and explain the plan → architecture → implementation → review flow.
+The response should identify `jared`, `richard_hendricks`, `dinesh`, and `gilfoyle`, explain their COO, CTO, VP Engineering, and VP Architecture responsibilities, and state that the parent thread selects one primary editor per area.
 
 In an interactive CLI session, use `/agent` to inspect or switch between running agent threads.
 
@@ -210,9 +232,17 @@ Goal: <customer outcome>
 Constraints: <technical, legal, cost, deadline, or compatibility constraints>
 Repository area: <known path or “inspect and determine it”>
 
-Have Jared define the outcome, non-goals, ownership, sequence, risks, and next proof point. Have Richard inspect the relevant code and propose the smallest sound architecture. Reconcile both in the main thread, then have Dinesh implement the agreed vertical slice and run the decisive tests. Finally have Gilfoyle review the actual diff for correctness, security, reliability, operability, and recovery. Send validated findings back to Dinesh, rerun tests, and report the delivered outcome and residual risk.
+Treat me as product owner and the parent thread as accountable engineering lead.
 
-Do not push, merge, deploy, delete, rotate secrets, or add paid services without my explicit approval.
+Use Jared when customer outcome, commitments, scope, ownership, launch, or business operations need definition.
+Use Richard for material technical direction, architecture, algorithms, performance, or technology-ethics decisions.
+Assign Dinesh as primary editor for application, API, UI, integration, migration, and developer-experience work.
+Assign Gilfoyle as primary editor for platform, infrastructure, deployment, security, observability, or recovery work.
+Use one primary editor per file or bounded area.
+
+Have independent specialists review the actual diff and evidence. Send validated findings to the primary editor, rerun decisive checks, and report the delivered outcome, proof, decisions, and residual risk.
+
+Do not push, merge, deploy, delete, rotate secrets, create standing automation, add paid services, or spend money without my explicit approval.
 ```
 
 ### Bug investigation and fix
@@ -220,7 +250,25 @@ Do not push, merge, deploy, delete, rotate secrets, or add paid services without
 ```text
 Bring in the dev team to fix this bug: <symptom and reproduction>.
 
-Use Richard only if the root cause involves architecture, data representation, concurrency, or performance. Have Dinesh reproduce and implement the smallest root-cause fix. Have Gilfoyle check sibling paths, failure modes, regressions, and recovery. Use Jared only when scope, ownership, release coordination, or customer communication is material. Run the smallest decisive test first, then the relevant broader checks.
+Have Dinesh reproduce the real user or caller failure and implement the smallest root-cause application fix.
+Have Gilfoyle lead instead when the defect is primarily infrastructure, deployment, network, identity, capacity, security, or recovery.
+Use Richard only when the root cause involves architecture, data representation, concurrency, performance, or a technical promise.
+Use Jared only when scope, ownership, customer impact, release coordination, or communication is material.
+
+Run the smallest decisive reproduction first, then relevant broader checks. Review sibling paths and report what was not tested.
+```
+
+### Infrastructure or security change
+
+```text
+Use Gilfoyle to lead this infrastructure or security task: <task>.
+
+Have Gilfoyle inspect the real configuration and runtime path, define assets and promises, map trust and failure boundaries, and implement the smallest bounded platform change.
+Have Dinesh review integration contracts, local developer usability, compatibility, and the application impact.
+Use Richard for material architecture, protocol, scaling, or build-versus-buy decisions.
+Use Jared for cost approval, vendor commitments, rollout ownership, customer communication, or launch coordination.
+
+Require rollback, restore, observability, capacity, cost, and runnable proof. Do not treat a successful deployment as proof of recovery.
 ```
 
 ### Architecture decision
@@ -228,43 +276,98 @@ Use Richard only if the root cause involves architecture, data representation, c
 ```text
 Use Richard and Gilfoyle as independent read-only reviewers of this proposal: <proposal>.
 
-Richard should evaluate invariants, bottlenecks, representation, alternatives, measurable proof, and migration. Gilfoyle should evaluate trust boundaries, dependencies, failure domains, detection, rollback, and recovery. Have Jared synthesize the decision, trade-offs, owner, non-goals, and revisit trigger. Do not edit code.
+Richard should evaluate the product promise, invariants, representation, algorithms, conventional alternatives, measurable proof, migration, and technology-ethics boundary.
+Gilfoyle should evaluate trust boundaries, dependencies, platform fit, failure domains, capacity, detection, rollback, restore, and recovery.
+Have Dinesh evaluate implementation and migration practicality.
+Have Jared capture the decision, commitments, owner, non-goals, commercial constraints, and revisit trigger.
+
+Do not edit code.
 ```
 
 ### Release readiness
 
 ```text
-Use Jared to lead release readiness for <release>. Have Dinesh verify build, tests, migrations, compatibility, and the complete user path. Have Gilfoyle verify security, observability, failure handling, rollback, restore, and incident ownership. Use Richard only for unresolved performance or architecture risks. Return a go, no-go, or go-with-conditions decision backed by evidence.
+Use Jared to lead release readiness for <release>.
+
+Have Jared verify customer value, commitments, owners, communications, support, governance coordination, success gates, and stop conditions.
+Have Dinesh verify build, tests, migrations, compatibility, accessibility, and the complete user path.
+Have Gilfoyle verify security, observability, capacity, failure handling, rollback, restore, incident ownership, and production-operating evidence.
+Use Richard for unresolved architecture, performance, data-use, or technology-ethics risks.
+
+Return a go, no-go, or go-with-conditions decision backed by evidence.
 ```
 
-## 8. Steer the agents while they work
+### Project rescue
 
-Use plain instructions in the main thread:
+```text
+Use Jared to lead a rescue of this initiative: <context>.
+
+Stop starting new work. Reconstruct the customer outcome, current commitments, owners, actual repository and production state, constraints, and the next proof point.
+Have Richard identify unresolved technical-direction decisions.
+Have Dinesh identify incomplete product paths, implementation debt, and test reality.
+Have Gilfoyle identify platform, security, reliability, deployment, and recovery risks.
+
+Cancel, defer, or narrow work that is not required for the next valuable outcome. Publish a truthful recovery plan with named owners and a near-term proof point.
+```
+
+## 8. Select the primary editor
+
+Do not default mechanically to Dinesh for every task.
+
+| Change type | Primary editor | Independent review |
+|---|---|---|
+| Product UI, API, service, integration, migration | Dinesh | Gilfoyle for failure and security; Richard for architecture |
+| Infrastructure, network, deployment, CI/CD, observability, security | Gilfoyle | Dinesh for integration and usability; Richard for architecture |
+| Narrow algorithmic prototype | Richard | Dinesh for maintainability; Gilfoyle for operational risk |
+| Planning, launch, operating, customer, stakeholder document | Jared | Relevant technical specialist for factual accuracy |
+
+Two editors may work in parallel only on explicitly non-overlapping files with a clear integration owner and stable contract. Stop parallelism when it creates merge risk or duplicated reasoning.
+
+## 9. Steer the agents while they work
+
+Use plain instructions in the parent thread:
 
 ```text
 Show me Gilfoyle's current findings.
-Tell Richard to compare the conventional alternative as well.
-Stop Jared; the product scope is already fixed.
-Ask Dinesh to avoid editing the deployment files.
-Close completed subagent threads after synthesizing them.
+Tell Richard to compare the conventional alternative and state the ethical stop condition.
+Ask Jared to list external commitments and identify any that lack an owner.
+Ask Dinesh to keep one integration owner and avoid editing deployment files.
+Make Gilfoyle the primary editor because this is a platform task.
+Stop Jared; the outcome and operating plan are already fixed.
+Close completed subagent threads after synthesising them.
 ```
 
-Do not run all four agents automatically for every task. Parallel agents use more tokens, and trivial work is usually faster and clearer with one agent.
+Do not run all four agents automatically for every task. Parallel agents use more tokens, and trivial work is usually faster and clearer with one accountable specialist.
 
-## 9. Recommended working pattern
+## 10. Recommended working pattern
 
 For each substantial change:
 
 1. Start a new Codex chat in a worktree based on the intended branch.
 2. Give the team one bounded customer outcome and explicit constraints.
-3. Let Jared and Richard analyse in parallel where useful.
-4. Require the main thread to choose one plan before editing.
-5. Let Dinesh be the sole primary editor.
-6. Let Gilfoyle review the resulting diff and test evidence.
-7. Fix validated findings, rerun checks, and inspect the final diff yourself.
-8. Create a branch and pull request only after the evidence is satisfactory.
+3. Select only the specialists whose roles materially improve the work.
+4. Let independent analysis run in parallel where useful.
+5. Require the parent thread to choose one plan before editing.
+6. Choose one primary editor per file or bounded area.
+7. Integrate early and run the smallest decisive checks.
+8. Ask independent specialists to review the actual diff and evidence.
+9. Fix validated findings and rerun checks.
+10. Inspect the final diff yourself.
+11. Create a branch and pull request only after the evidence is satisfactory.
 
-This is a dev team, not four simultaneous typists. The value comes from specialist separation, controlled handoffs, one implementation owner, and one lead thread that remains accountable for the result.
+This is a development team, not four simultaneous typists and not a comedy role-play. The value comes from broad but bounded roles, task-shaped leadership, controlled handoffs, one integration owner, and a parent thread that remains accountable for the result.
+
+## Humour rules
+
+A small amount of original character flavour is allowed when it helps the user follow the team:
+
+- one brief aside at most in an ordinary progress update;
+- no quotations or close imitation of programme dialogue;
+- no insults, humiliation, threats, or jokes about a person;
+- no humour during incidents, safety issues, legal or personnel matters, or serious customer harm;
+- no joke may replace an action, decision, test, caveat, or piece of evidence.
+
+Omit humour whenever it makes the work less clear or trustworthy.
 
 ## Updating the team
 
