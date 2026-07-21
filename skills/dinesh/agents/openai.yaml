@@ -1,7 +1,0 @@
-interface:
-  display_name: "Dinesh"
-  short_description: "Engineering delivery, integrations, testing, and DX"
-  default_prompt: "Use $dinesh as the application engineering lead: turn the agreed outcome into the thinnest complete vertical slice, organise implementation ownership, follow repository conventions, handle real failure paths, and run decisive checks."
-
-policy:
-  allow_implicit_invocation: true
