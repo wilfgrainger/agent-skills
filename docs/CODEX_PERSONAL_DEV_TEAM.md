@@ -1,71 +1,44 @@
-# Use the Silicon Valley skills as a Codex dev team
+# Use the team with Codex
 
-This setup gives Codex four spawnable specialist agents:
+This is the Codex adapter for the platform-neutral [Silicon Valley development team](USING_THE_TEAM.md).
 
-- **Jared** — COO, business advisor, product operations, and delivery lead
-- **Richard** — technical founder and CTO
-- **Dinesh** — VP Engineering and application-delivery lead
-- **Gilfoyle** — VP Architecture, platform, security, and reliability lead
+Codex uses:
 
-The television programme supplies memorable names and broad role inspiration. The checked-in skills and agent profiles supply professional behaviour. They do not impersonate the characters, reproduce dialogue, or import their misconduct.
+- Agent Skills under `~/.agents/skills/`;
+- custom-agent TOML files under `~/.codex/agents/`;
+- `~/.codex/AGENTS.md` for parent-thread orchestration rules;
+- bounded subagent concurrency in `~/.codex/config.toml`.
 
-This is a serious development team. The humour budget is small; the evidence standard is not.
+The canonical behaviour remains in the six team skills. The Codex files only adapt discovery, delegation, permissions, and concurrency.
 
-## How the pieces fit
+## Team
 
-Codex uses three separate layers:
+- **Master:** `silicon-valley-dev-team`
+- **Jared:** `jared`
+- **Richard:** `richard_hendricks`
+- **Dinesh:** `dinesh`
+- **Gilfoyle:** `gilfoyle`
+- **Jian-Yang:** `jian_yang`, always read-only
 
-1. **Skills** describe each specialist's operating method. Codex discovers personal skills in `~/.agents/skills/`.
-2. **Custom agents** make those specialists independently spawnable. Personal agent profiles live in `~/.codex/agents/`.
-3. **AGENTS.md** tells the parent Codex thread how to act as accountable engineering lead, select a task-shaped team, control editing, reconcile findings, and report evidence.
+The user is product owner and final decision-maker. The parent Codex thread is accountable engineering lead and integration owner.
 
-Do not replace the skills with four long prompts. Skills use progressive loading: Codex initially sees their names and descriptions, then loads the full `SKILL.md` only when selected.
+## 1. Clone or update the repository
 
-The user remains product owner and final decision-maker. The parent Codex thread remains accountable for integration and truthfulness.
-
-## Role model
-
-| Specialist | Accountable for | Usually read-only when |
-|---|---|---|
-| Jared | Customer outcome, product and business operations, commitments, ownership, sequence, launch, stakeholder communication, project rescue | The task is purely technical and already bounded |
-| Richard | Technical strategy, architecture, algorithms, performance, major pivots, product-platform coherence, technology ethics | The design is conventional and already decided |
-| Dinesh | Application engineering, APIs, UI, services, integrations, migrations, code quality, tests, developer experience | Another specialist owns a bounded platform-only change |
-| Gilfoyle | Platform, infrastructure, networks, CI/CD, security, reliability, observability, incidents, capacity, rollback, restore | The task has no material platform, security, or operational consequence |
-
-One specialist is not permanently “above” the others. Leadership follows the work:
-
-- Jared leads cross-functional operating and delivery problems.
-- Richard leads technical-direction problems.
-- Dinesh leads application-engineering delivery.
-- Gilfoyle leads platform, security, reliability, and incident work.
-
-The parent thread chooses the lead, enforces boundaries, and makes the final synthesis.
-
-## Recommended client
-
-The ChatGPT desktop app provides the clearest experience because it shows subagent threads and supports Git worktrees. Codex CLI and the IDE extension use the same skills, custom agents, and `AGENTS.md` setup.
-
-For substantial work, use a worktree per task or branch. This lets the team work without disturbing your active checkout. Keep one primary editing agent per file or tightly bounded area.
-
-## 1. Clone or update the skills repository
-
-### Windows PowerShell
+### PowerShell
 
 ```powershell
 $repo = Join-Path $HOME "agent-skills"
-
-if (Test-Path $repo) {
+if (Test-Path (Join-Path $repo ".git")) {
     git -C $repo pull --ff-only
 } else {
     git clone https://github.com/wilfgrainger/agent-skills.git $repo
 }
 ```
 
-### WSL, Linux, or macOS
+### Bash, WSL, Linux, or macOS
 
 ```bash
 repo="$HOME/agent-skills"
-
 if [ -d "$repo/.git" ]; then
   git -C "$repo" pull --ff-only
 else
@@ -73,18 +46,21 @@ else
 fi
 ```
 
-## 2. Install the four skills globally
+## 2. Install the six skills
 
-Global installation makes the skills available in every repository you open with Codex.
-
-### Windows PowerShell
-
-Copy the folders into your personal skills directory:
+### PowerShell
 
 ```powershell
 $repo = Join-Path $HOME "agent-skills"
 $skillsHome = Join-Path $HOME ".agents\skills"
-$skills = @("richard-hendricks", "gilfoyle", "dinesh", "jared")
+$skills = @(
+  "silicon-valley-dev-team",
+  "jared",
+  "richard-hendricks",
+  "dinesh",
+  "gilfoyle",
+  "jian-yang"
+)
 
 New-Item -ItemType Directory -Force -Path $skillsHome | Out-Null
 
@@ -97,36 +73,31 @@ foreach ($skill in $skills) {
 }
 ```
 
-This deliberately replaces only those four skill folders. It does not touch any other installed skills.
-
-### WSL, Linux, or macOS
-
-Symlink the repository folders so a future `git pull` updates them in place:
+### Bash, WSL, Linux, or macOS
 
 ```bash
 repo="$HOME/agent-skills"
 mkdir -p "$HOME/.agents/skills"
 
-for skill in richard-hendricks gilfoyle dinesh jared; do
+for skill in silicon-valley-dev-team jared richard-hendricks dinesh gilfoyle jian-yang; do
   ln -sfn "$repo/skills/$skill" "$HOME/.agents/skills/$skill"
 done
 ```
 
-Codex follows symlinked skill folders.
+Symlinks update immediately after `git pull`. Copied installations need the copy step repeated.
 
-## 3. Install the custom agent profiles
+## 3. Install the five custom-agent profiles
 
-### Windows PowerShell
+### PowerShell
 
 ```powershell
 $repo = Join-Path $HOME "agent-skills"
 $agentsHome = Join-Path $HOME ".codex\agents"
-
 New-Item -ItemType Directory -Force -Path $agentsHome | Out-Null
 Copy-Item (Join-Path $repo "codex\agents\*.toml") $agentsHome -Force
 ```
 
-### WSL, Linux, or macOS
+### Bash, WSL, Linux, or macOS
 
 ```bash
 repo="$HOME/agent-skills"
@@ -134,38 +105,24 @@ mkdir -p "$HOME/.codex/agents"
 cp "$repo"/codex/agents/*.toml "$HOME/.codex/agents/"
 ```
 
-Each TOML file defines one custom agent with a narrow description and developer instructions. Model and permission settings are intentionally omitted so the specialists inherit the model and sandbox selected by the parent Codex session.
+The profiles inherit the model and sandbox selected by the parent session. Jian-Yang's profile explicitly requires read-only work.
 
-## 4. Add the team-lead instructions
+## 4. Add the parent-team instructions
 
 Codex reads `~/.codex/AGENTS.md` before work in every repository.
 
-First check whether you already have one.
+When that file does not exist, copy the supplied adapter.
 
-### Windows PowerShell
-
-```powershell
-$globalAgents = Join-Path $HOME ".codex\AGENTS.md"
-Test-Path $globalAgents
-```
-
-### WSL, Linux, or macOS
-
-```bash
-test -f "$HOME/.codex/AGENTS.md" && echo exists || echo missing
-```
-
-When the file is missing, copy the supplied template.
-
-### Windows PowerShell
+### PowerShell
 
 ```powershell
 $repo = Join-Path $HOME "agent-skills"
-New-Item -ItemType Directory -Force -Path (Join-Path $HOME ".codex") | Out-Null
-Copy-Item (Join-Path $repo "codex\AGENTS.md") (Join-Path $HOME ".codex\AGENTS.md")
+$codexHome = Join-Path $HOME ".codex"
+New-Item -ItemType Directory -Force -Path $codexHome | Out-Null
+Copy-Item (Join-Path $repo "codex\AGENTS.md") (Join-Path $codexHome "AGENTS.md")
 ```
 
-### WSL, Linux, or macOS
+### Bash, WSL, Linux, or macOS
 
 ```bash
 repo="$HOME/agent-skills"
@@ -173,220 +130,130 @@ mkdir -p "$HOME/.codex"
 cp "$repo/codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
 ```
 
-When `~/.codex/AGENTS.md` already exists, do not overwrite it. Append or merge the contents of `codex/AGENTS.md` beneath your existing global working agreements. Keep the combined file below Codex's instruction-size limit and remove conflicting rules.
+When `~/.codex/AGENTS.md` already exists, merge the adapter rather than overwriting deliberate personal rules. The key requirement is that “use the dev team” loads the `silicon-valley-dev-team` master skill and keeps the parent thread accountable.
 
-Repository-level `AGENTS.md` files still apply. More specific instructions closer to the current working directory override broader global guidance.
+Repository-level `AGENTS.md` files still apply and may provide more specific project instructions.
 
-## 5. Configure bounded subagent concurrency
-
-Codex defaults already permit direct subagents. The supplied configuration makes the intended team shape explicit: one parent lead plus up to four specialists, with no recursive fan-out.
+## 5. Configure bounded concurrency
 
 Merge this into `~/.codex/config.toml`:
 
 ```toml
 [agents]
-max_threads = 5
+max_threads = 6
 max_depth = 1
 interrupt_message = true
 ```
 
-Do not blindly replace an existing `[agents]` section. Merge the keys and keep any deliberate local settings.
+Six threads permit the parent plus five specialists. The master skill should still select only the specialists needed for each task. `max_depth = 1` prevents unmanaged recursive teams.
+
+Do not blindly replace an existing `[agents]` section. Merge the keys.
 
 ## 6. Restart and verify
 
-Restart the ChatGPT desktop app, Codex CLI session, or IDE extension after installation.
+Restart Codex after installing new skills or custom agents.
 
-In Codex CLI:
-
-```text
-/skills
-```
-
-Confirm these four skills are present:
+Run `/skills` and confirm:
 
 ```text
-richard-hendricks
-gilfoyle
-dinesh
+silicon-valley-dev-team
 jared
+richard-hendricks
+dinesh
+gilfoyle
+jian-yang
 ```
 
 Then ask:
 
 ```text
-List the custom agents available to you and summarise the personal development team instructions you loaded. Do not change files.
+List the Silicon Valley development-team skill and custom agents available to you. Explain who normally edits application files, who edits platform files, and who must remain read-only. Do not change files.
 ```
 
-The response should identify `jared`, `richard_hendricks`, `dinesh`, and `gilfoyle`, explain their COO, CTO, VP Engineering, and VP Architecture responsibilities, and state that the parent thread selects one primary editor per area.
+A correct response identifies:
 
-In an interactive CLI session, use `/agent` to inspect or switch between running agent threads.
+- the master orchestrator;
+- all five specialists;
+- Dinesh as the normal application editor;
+- Gilfoyle as the normal platform editor;
+- Jian-Yang as always read-only;
+- the parent thread as accountable integration owner.
 
-## 7. Use the team
+## 7. Use the master skill
 
-### Full feature delivery
+### Full delivery
 
 ```text
-Use my personal dev team for this task.
+$silicon-valley-dev-team deliver
 
 Goal: <customer outcome>
-Constraints: <technical, legal, cost, deadline, or compatibility constraints>
-Repository area: <known path or “inspect and determine it”>
-
-Treat me as product owner and the parent thread as accountable engineering lead.
-
-Use Jared when customer outcome, commitments, scope, ownership, launch, or business operations need definition.
-Use Richard for material technical direction, architecture, algorithms, performance, or technology-ethics decisions.
-Assign Dinesh as primary editor for application, API, UI, integration, migration, and developer-experience work.
-Assign Gilfoyle as primary editor for platform, infrastructure, deployment, security, observability, or recovery work.
-Use one primary editor per file or bounded area.
-
-Have independent specialists review the actual diff and evidence. Send validated findings to the primary editor, rerun decisive checks, and report the delivered outcome, proof, decisions, and residual risk.
-
-Do not push, merge, deploy, delete, rotate secrets, create standing automation, add paid services, or spend money without my explicit approval.
+Constraints: <technical, legal, cost, timing, compatibility, privacy, or operational boundaries>
+Repository area: <path or inspect and determine it>
+Authority: <what may be edited, committed, pushed, merged, or deployed>
 ```
 
-### Bug investigation and fix
+### Read-only review
 
 ```text
-Bring in the dev team to fix this bug: <symptom and reproduction>.
-
-Have Dinesh reproduce the real user or caller failure and implement the smallest root-cause application fix.
-Have Gilfoyle lead instead when the defect is primarily infrastructure, deployment, network, identity, capacity, security, or recovery.
-Use Richard only when the root cause involves architecture, data representation, concurrency, performance, or a technical promise.
-Use Jared only when scope, ownership, customer impact, release coordination, or communication is material.
-
-Run the smallest decisive reproduction first, then relevant broader checks. Review sibling paths and report what was not tested.
-```
-
-### Infrastructure or security change
-
-```text
-Use Gilfoyle to lead this infrastructure or security task: <task>.
-
-Have Gilfoyle inspect the real configuration and runtime path, define assets and promises, map trust and failure boundaries, and implement the smallest bounded platform change.
-Have Dinesh review integration contracts, local developer usability, compatibility, and the application impact.
-Use Richard for material architecture, protocol, scaling, or build-versus-buy decisions.
-Use Jared for cost approval, vendor commitments, rollout ownership, customer communication, or launch coordination.
-
-Require rollback, restore, observability, capacity, cost, and runnable proof. Do not treat a successful deployment as proof of recovery.
+$silicon-valley-dev-team review <repository, PR, product, architecture, or plan>
 ```
 
 ### Architecture decision
 
 ```text
-Use Richard and Gilfoyle as independent read-only reviewers of this proposal: <proposal>.
-
-Richard should evaluate the product promise, invariants, representation, algorithms, conventional alternatives, measurable proof, migration, and technology-ethics boundary.
-Gilfoyle should evaluate trust boundaries, dependencies, platform fit, failure domains, capacity, detection, rollback, restore, and recovery.
-Have Dinesh evaluate implementation and migration practicality.
-Have Jared capture the decision, commitments, owner, non-goals, commercial constraints, and revisit trigger.
-
-Do not edit code.
+$silicon-valley-dev-team architecture <decision>
 ```
 
 ### Release readiness
 
 ```text
-Use Jared to lead release readiness for <release>.
-
-Have Jared verify customer value, commitments, owners, communications, support, governance coordination, success gates, and stop conditions.
-Have Dinesh verify build, tests, migrations, compatibility, accessibility, and the complete user path.
-Have Gilfoyle verify security, observability, capacity, failure handling, rollback, restore, incident ownership, and production-operating evidence.
-Use Richard for unresolved architecture, performance, data-use, or technology-ethics risks.
-
-Return a go, no-go, or go-with-conditions decision backed by evidence.
+$silicon-valley-dev-team release <release>
 ```
 
 ### Project rescue
 
 ```text
-Use Jared to lead a rescue of this initiative: <context>.
-
-Stop starting new work. Reconstruct the customer outcome, current commitments, owners, actual repository and production state, constraints, and the next proof point.
-Have Richard identify unresolved technical-direction decisions.
-Have Dinesh identify incomplete product paths, implementation debt, and test reality.
-Have Gilfoyle identify platform, security, reliability, deployment, and recovery risks.
-
-Cancel, defer, or narrow work that is not required for the next valuable outcome. Publish a truthful recovery plan with named owners and a near-term proof point.
+$silicon-valley-dev-team rescue <initiative>
 ```
 
-## 8. Select the primary editor
-
-Do not default mechanically to Dinesh for every task.
-
-| Change type | Primary editor | Independent review |
-|---|---|---|
-| Product UI, API, service, integration, migration | Dinesh | Gilfoyle for failure and security; Richard for architecture |
-| Infrastructure, network, deployment, CI/CD, observability, security | Gilfoyle | Dinesh for integration and usability; Richard for architecture |
-| Narrow algorithmic prototype | Richard | Dinesh for maintainability; Gilfoyle for operational risk |
-| Planning, launch, operating, customer, stakeholder document | Jared | Relevant technical specialist for factual accuracy |
-
-Two editors may work in parallel only on explicitly non-overlapping files with a clear integration owner and stable contract. Stop parallelism when it creates merge risk or duplicated reasoning.
-
-## 9. Steer the agents while they work
-
-Use plain instructions in the parent thread:
+Natural language also works:
 
 ```text
-Show me Gilfoyle's current findings.
-Tell Richard to compare the conventional alternative and state the ethical stop condition.
-Ask Jared to list external commitments and identify any that lack an owner.
-Ask Dinesh to keep one integration owner and avoid editing deployment files.
-Make Gilfoyle the primary editor because this is a platform task.
-Stop Jared; the outcome and operating plan are already fixed.
-Close completed subagent threads after synthesising them.
+Use the Silicon Valley dev team to deliver this feature.
+Bring in the team for a complete repository review.
+Use Jian-Yang as the final read-only adversarial reviewer.
 ```
 
-Do not run all four agents automatically for every task. Parallel agents use more tokens, and trivial work is usually faster and clearer with one accountable specialist.
+## Expected Codex flow
 
-## 10. Recommended working pattern
+For substantial work, the parent thread should:
 
-For each substantial change:
+1. load the master skill;
+2. inspect the repository and authority;
+3. select the smallest relevant specialist set;
+4. run independent analysis in parallel only where useful;
+5. reconcile one plan before editing;
+6. assign one primary editor per file or bounded area;
+7. run decisive checks during implementation;
+8. review the actual diff and evidence;
+9. correct validated findings and rerun checks;
+10. return one coherent result.
 
-1. Start a new Codex chat in a worktree based on the intended branch.
-2. Give the team one bounded customer outcome and explicit constraints.
-3. Select only the specialists whose roles materially improve the work.
-4. Let independent analysis run in parallel where useful.
-5. Require the parent thread to choose one plan before editing.
-6. Choose one primary editor per file or bounded area.
-7. Integrate early and run the smallest decisive checks.
-8. Ask independent specialists to review the actual diff and evidence.
-9. Fix validated findings and rerun checks.
-10. Inspect the final diff yourself.
-11. Create a branch and pull request only after the evidence is satisfactory.
+Use worktrees for substantial isolated changes when available. Do not let multiple agents edit the same files concurrently.
 
-This is a development team, not four simultaneous typists and not a comedy role-play. The value comes from broad but bounded roles, task-shaped leadership, controlled handoffs, one integration owner, and a parent thread that remains accountable for the result.
+## Direct specialist invocation
 
-## Humour rules
+Invoke a specialist directly when the problem clearly fits one role:
 
-A small amount of original character flavour is allowed when it helps the user follow the team:
-
-- one brief aside at most in an ordinary progress update;
-- no quotations or close imitation of programme dialogue;
-- no insults, humiliation, threats, or jokes about a person;
-- no humour during incidents, safety issues, legal or personnel matters, or serious customer harm;
-- no joke may replace an action, decision, test, caveat, or piece of evidence.
-
-Omit humour whenever it makes the work less clear or trustworthy.
-
-## Updating the team
-
-### Windows PowerShell
-
-```powershell
-$repo = Join-Path $HOME "agent-skills"
-git -C $repo pull --ff-only
-# Repeat steps 2 and 3 to refresh copied skills and agent profiles.
+```text
+$richard-hendricks design <system>
+$gilfoyle platform <infrastructure change>
+$dinesh build <feature>
+$jared launch <release>
+$jian-yang red-team <product or plan>
 ```
 
-### WSL, Linux, or macOS
-
-```bash
-git -C "$HOME/agent-skills" pull --ff-only
-# Symlinked skills update immediately. Re-copy codex/agents/*.toml if profiles changed.
-```
-
-Restart Codex when updated files do not appear immediately.
+Use the master skill when the work crosses roles or needs implementation plus independent review.
 
 ## Official Codex references
 
