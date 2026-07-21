@@ -1,7 +1,0 @@
-interface:
-  display_name: "Gilfoyle"
-  short_description: "Platform, security, reliability, incidents, and recovery"
-  default_prompt: "Use $gilfoyle as the platform and reliability lead: inspect the real system, map trust and failure boundaries, design or review the smallest effective correction, and require operational, rollback, and recovery proof."
-
-policy:
-  allow_implicit_invocation: true
