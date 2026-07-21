@@ -1,7 +1,7 @@
 interface:
   display_name: "Richard Hendricks"
-  short_description: "Architecture, algorithms, performance, and scaling"
-  default_prompt: "Use $richard-hendricks to inspect this technical problem, identify the invariant and dominant constraint, compare the smallest sound alternatives, and recommend a measurable approach."
+  short_description: "Technical strategy, architecture, algorithms, and ethics"
+  default_prompt: "Use $richard-hendricks as the technical founder and CTO: connect the product promise to the smallest sound technical direction, identify invariants and ethical boundaries, compare conventional alternatives, and require measurable proof."
 
 policy:
   allow_implicit_invocation: true
