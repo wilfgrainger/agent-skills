@@ -16,9 +16,29 @@ This is an unofficial fan-made project. It is not affiliated with or endorsed by
 | [Dinesh](skills/dinesh/) | Feature implementation, integrations, APIs, UI and developer experience | Does the complete path actually work? |
 | [Jared](skills/jared/) | Product operations, planning, launches, ownership and stakeholder clarity | Who owns the next valuable outcome? |
 
-## Install
+## Codex personal dev team
 
-Install a skill directly from its folder:
+The repository includes ready-to-copy Codex custom-agent profiles and lead-agent instructions that combine the four *Silicon Valley*-inspired skills into a controlled delivery team:
+
+```text
+Jared defines the outcome, scope, owners, and sequence
+Richard resolves architecture and difficult technical trade-offs
+Dinesh implements and tests the complete vertical slice
+Gilfoyle reviews the actual diff for failure, security, and recovery
+The main Codex thread remains accountable for decisions and synthesis
+```
+
+See [Use the Silicon Valley skills as a Codex dev team](docs/CODEX_PERSONAL_DEV_TEAM.md) for Windows, WSL, Linux, and macOS setup, verification, worktree guidance, and copy-paste team prompts.
+
+The supporting files are under [`codex/`](codex/):
+
+- `AGENTS.md` — global team-lead and handoff rules;
+- `agents/*.toml` — the four spawnable custom-agent profiles;
+- `config.toml.example` — bounded concurrency with no recursive fan-out.
+
+## Install individual skills
+
+Install a skill directly from its folder with an Agent Skills-compatible installer:
 
 ```bash
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/richard-hendricks
@@ -27,7 +47,7 @@ npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/din
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/jared
 ```
 
-The commands above track `main`. Pin to a tag or commit when reproducibility matters.
+For Codex, personal skills can instead be copied or symlinked into `~/.agents/skills/`. The team setup guide provides exact commands. Installations tracking `main` receive future changes; pin to a tag or commit when reproducibility matters.
 
 ## Choosing a skill
 
@@ -49,17 +69,19 @@ Gilfoyle challenges failure and recovery
 Cave Pony removes anything that did not earn its place
 ```
 
-## Commands
+## Codex invocation
+
+In Codex CLI or the IDE extension, run `/skills` to browse installed skills or type `$` to mention one explicitly:
 
 ```text
-/richard-hendricks design <system>
-/richard-hendricks optimize <bottleneck>
-/gilfoyle audit <system>
-/gilfoyle incident <service>
-/dinesh build <feature>
-/dinesh integrate <components>
-/jared plan <initiative>
-/jared launch <release>
+$richard-hendricks design <system>
+$richard-hendricks optimize <bottleneck>
+$gilfoyle audit <system>
+$gilfoyle incident <service>
+$dinesh build <feature>
+$dinesh integrate <components>
+$jared plan <initiative>
+$jared launch <release>
 ```
 
 Each `SKILL.md` contains its activation rules, modes, execution loop, decision rules, output contract, boundaries, and completion test.
