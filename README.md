@@ -2,11 +2,16 @@
 
 Portable `SKILL.md` operating methods for software engineering, product delivery, company operations, and adversarial review.
 
-The repository contains five specialists inspired by HBO's *Silicon Valley*, one master skill that coordinates them, and Cave Pony for simplicity and proof. They are professional methods, not character impersonations. Harmful or comic behaviour is converted into failure modes to resist.
+This repository contains two deliberately separate products:
+
+1. **Silicon Valley Dev Team** — five character-inspired specialists plus one master skill that coordinates them.
+2. **Cave Pony** — an independent simplicity-and-proof skill that can be used alone or as an optional final pass after team delivery.
+
+The character-inspired skills are professional methods, not impersonations. Harmful or comic behaviour is converted into failure modes to resist.
 
 This is an unofficial fan-made project. It is not affiliated with or endorsed by HBO, Warner Bros. Discovery, the programme's creators, cast, or rights holders.
 
-## Skills
+## Silicon Valley development team
 
 | Skill | Professional role | Best used for |
 |---|---|---|
@@ -16,9 +21,36 @@ This is an unofficial fan-made project. It is not affiliated with or endorsed by
 | [Dinesh](skills/dinesh/) | VP Engineering and application-delivery lead | Application delivery, APIs, UI, integrations, migrations, testing, maintainability, and developer experience |
 | [Jared](skills/jared/) | COO and delivery lead | Customer outcomes, product and business operations, commitments, planning, launches, ownership, and rescue |
 | [Jian-Yang](skills/jian-yang/) | Read-only adversarial product and ecosystem reviewer | Competitors, loopholes, incentive abuse, ownership gaps, hostile dependencies, unsupported claims, copyability, and metric gaming |
-| [Cave Pony](skills/cave-pony/) | Simplicity and proof coach | Removing unnecessary scope, code, abstraction, and narration while preserving correctness |
 
 See [character role coverage](docs/CHARACTER_ROLE_COVERAGE.md) for the source-to-professional mapping and role boundaries.
+
+## Standalone companion skill
+
+| Skill | Role | Best used for |
+|---|---|---|
+| [Cave Pony](skills/cave-pony/) | Independent simplicity and proof coach | Removing unnecessary scope, code, abstraction, and narration while preserving correctness and decisive evidence |
+
+Cave Pony is not based on a *Silicon Valley* character and is not part of the team roster. It can be installed and invoked entirely on its own.
+
+It is also a useful optional supplement after the team has produced a coherent, tested result:
+
+```text
+silicon-valley-dev-team deliver <customer outcome>
+cave-pony audit <resulting change>
+```
+
+The master skill may suggest this final pass when the result appears bloated. It must not invoke Cave Pony merely because the skill exists.
+
+### Why not merge Cave Pony into Gilfoyle?
+
+Gilfoyle and Cave Pony overlap on scepticism, simple controls, and dislike of theatre, but their accountabilities are different:
+
+- **Gilfoyle** protects technical trust boundaries, operability, security, failure handling, and recovery.
+- **Cave Pony** challenges unnecessary footprint and attention cost across any kind of work.
+
+Keeping them separate prevents minimalism from compressing away security evidence, incident detail, rollback instructions, or recovery safeguards. Gilfoyle may recommend Cave Pony as a separate final pass; Gilfoyle does not absorb its persona or activation rules.
+
+All skills remain under `skills/` because that is the portable Agent Skills packaging convention. Standalone describes ownership and activation, not a different filesystem root.
 
 ## Use the team
 
@@ -50,6 +82,8 @@ The `SKILL.md` files are the product. No vendor-specific profiles or adapters ar
 
 ## Install
 
+Install the Silicon Valley team:
+
 ```bash
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/silicon-valley-dev-team
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/richard-hendricks
@@ -59,9 +93,15 @@ npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/jar
 npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/jian-yang
 ```
 
+Install Cave Pony separately:
+
+```bash
+npx skills add https://github.com/wilfgrainger/agent-skills/tree/main/skills/cave-pony
+```
+
 Or copy or symlink the skill folders into the personal or project skill directory supported by your runtime.
 
-Invoke one specialist directly when the problem clearly fits one role. Use Cave Pony as a final simplification lens, not as another standing team member.
+Invoke one specialist directly when the problem clearly fits one role. Use Cave Pony independently or as an optional final simplification lens, never as a standing Silicon Valley team member.
 
 ## Design principles
 
@@ -70,7 +110,8 @@ Invoke one specialist directly when the problem clearly fits one role. Use Cave 
 - Keep one parent agent accountable for integration and truthfulness.
 - Use one primary editor per file or bounded area.
 - Keep Jian-Yang read-only and defensive.
-- Evidence, safety, privacy, accessibility, legal obligations, and truthful reporting outrank character flavour.
+- Keep Cave Pony independent from the Silicon Valley roster.
+- Evidence, safety, privacy, accessibility, legal obligations, and truthful reporting outrank character flavour or brevity.
 - Humour may make the skills memorable; it must never make the work hostile or vague.
 - Every skill must remain useful after its character name is removed.
 
