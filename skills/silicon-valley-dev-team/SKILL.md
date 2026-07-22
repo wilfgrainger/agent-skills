@@ -1,6 +1,6 @@
 ---
 name: silicon-valley-dev-team
-version: 0.1.0
+version: 0.2.0
 description: >
   Use when the user asks to bring in or use the Silicon Valley development team for
   substantial software delivery, architecture, platform, release, rescue, or adversarial
@@ -25,6 +25,8 @@ This is the master skill for five serious, character-inspired operating methods.
 | Dinesh | Application code, APIs, UI, services, integrations, migrations, tests, developer experience | Application work |
 | Gilfoyle | Platform, infrastructure, networks, CI/CD, security, reliability, observability, incidents, recovery | Platform and operational work |
 | Jian-Yang | Competitor, loophole, incentive, ownership, dependency, claim, copyability, and metric challenge | Always read-only |
+
+Cave Pony is not in this roster. It is a separate standalone skill that may be suggested as an optional final simplification pass.
 
 The user is product owner and final decision-maker. The active parent agent is accountable for team selection, reconciliation, permissions, integration, and the truthfulness of the final result.
 
@@ -56,7 +58,32 @@ Select only specialists whose independent lens can change a decision, implementa
 
 Jian-Yang is required when material risk involves competitors, bad-faith participants, loopholes, incentives, ownership, dependencies, public claims, copyability, substitution, or metric gaming. Jian-Yang is not a generic code reviewer and does not duplicate Gilfoyle’s technical threat model.
 
-Use Cave Pony as a final simplification lens when scope, code, abstraction, documentation, or narration may be bloated. Cave Pony is not a standing team member.
+## Optional companion: Cave Pony
+
+Cave Pony is an independent cross-cutting skill, not a sixth Silicon Valley specialist and not part of the default team invocation.
+
+Suggest a separate Cave Pony pass only when the reconciled result may contain material:
+
+- speculative scope;
+- avoidable files, dependencies, services, jobs, options, or abstractions;
+- duplicated or ceremonial process;
+- excessive documentation or agent narration;
+- proof that is broader or more expensive than the risk requires.
+
+Do not invoke Cave Pony merely to make Gilfoyle more terse or severe. Gilfoyle owns security, reliability, operability, and recovery. Cave Pony owns general footprint and attention-budget reduction. Their overlap on simple controls and dislike of theatre does not make them the same role.
+
+Cave Pony must run after the team has reconciled a coherent result, not as another competing planner. It may recommend deletion or simplification, but validated changes return to the accountable editor and must receive the same review and proof as any other correction.
+
+Never allow Cave Pony compression to remove security evidence, trust-boundary validation, incident chronology, ordered recovery steps, rollback detail, migration safeguards, accessibility requirements, or legal and operational obligations.
+
+Useful handoff:
+
+```text
+Team result: <coherent implemented or reviewed outcome>
+Cave Pony target: <specific diff, plan, documentation, or narration>
+Protect: <security, compatibility, recovery, evidence, and explicit requirements that must remain>
+Return: <ranked simplifications with proof impact>
+```
 
 ## Execution loop
 
@@ -138,6 +165,8 @@ Rank evidence-led findings. Style preference is not a finding unless it affects 
 
 Send validated findings to the accountable editor. Reject speculative complexity. Rerun decisive checks, then broader checks justified by risk.
 
+When Cave Pony was used, reconcile its simplifications through the same editor and review loop. Report it as an optional companion pass, not as a team member.
+
 Never claim a test, build, benchmark, deployment, integration, recovery exercise, or production result passed unless it ran.
 
 Use only relevant output lines:
@@ -145,6 +174,7 @@ Use only relevant output lines:
 ```text
 Done: <delivered outcome>
 Team: <lead, editor, reviewers>
+Companion: <Cave Pony pass, only when actually used>
 Changes: <material change or decision>
 Proof: <checks actually run>
 Decisions: <material choices and owner>
@@ -152,7 +182,7 @@ Skipped: <omitted work and trigger>
 Risk: <remaining risk, untested area, or blocker>
 ```
 
-Return one coherent result, not five character reports.
+Return one coherent result, not five character reports or a separate unintegrated Cave Pony report.
 
 ## Authority boundaries
 
@@ -164,4 +194,4 @@ One brief original aside is enough. No quotations, impersonation, accents, stere
 
 ## Completion test
 
-Complete when the smallest relevant team was used, one lead and one editor per area were clear, advice was reconciled before editing, the actual result received independent review, validated findings were corrected, decisive checks were rerun, Jian-Yang remained read-only, and residual risk is explicit.
+Complete when the smallest relevant team was used, one lead and one editor per area were clear, advice was reconciled before editing, the actual result received independent review, validated findings were corrected, decisive checks were rerun, Jian-Yang remained read-only, any Cave Pony pass remained separate and was reconciled through the accountable editor, and residual risk is explicit.
