@@ -30,7 +30,20 @@ The team is task-shaped, not a fixed plan-to-code conveyor belt. Leadership foll
 
 `silicon-valley-dev-team` is an orchestration method, not a sixth manager. It selects the smallest useful specialist set, reconciles advice before editing, enforces edit ownership, requires independent review and decisive proof, and returns one coherent result.
 
-It may use Cave Pony as a final simplification lens. Cave Pony is not a standing specialist.
+## Cave Pony is separate
+
+Cave Pony is an independent skill with its own activation, persistence, build-budget, attention-budget, audit, and clarity rules. It is not character-inspired and is not part of the Silicon Valley team roster.
+
+The master skill may suggest Cave Pony as an optional final simplification pass after the team has produced one coherent result. This is useful when scope, code, abstractions, dependencies, process, documentation, proof, or narration may be bloated.
+
+Cave Pony does not merge into Gilfoyle:
+
+- **Gilfoyle** is accountable for technical trust boundaries, infrastructure, identity, deployment, reliability, capacity, detection, rollback, restore, and recovery.
+- **Cave Pony** is accountable for general footprint and attention-cost reduction across any domain.
+
+Gilfoyle already prefers simple platform primitives and treats complexity as attack surface. That useful overlap does not justify combining the skills. Separation prevents brevity or minimalism from removing security evidence, incident chronology, ordered recovery steps, rollback detail, or operational safeguards.
+
+Any accepted Cave Pony simplification returns to the accountable team editor and receives normal review and proof. Cave Pony is reported as a companion pass, never as a sixth team member.
 
 ## Gilfoyle and Jian-Yang are different
 
@@ -42,6 +55,8 @@ Gilfoyle may implement platform controls. Jian-Yang never edits and hands findin
 ## Portability
 
 The roles and orchestration live entirely in the `SKILL.md` files. A runtime may use subagents or apply selected skills sequentially, but vendor-specific profiles are not part of the team definition.
+
+All portable skills remain under the repository's `skills/` directory. Cave Pony's standalone status is an ownership and activation boundary, not a reason to break the conventional folder layout or existing install URL.
 
 ## Humour without cosplay
 
