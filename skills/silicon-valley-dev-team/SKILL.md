@@ -1,12 +1,13 @@
 ---
 name: silicon-valley-dev-team
-version: 0.2.0
+version: 0.3.0
 description: >
-  Use when the user asks to bring in or use the Silicon Valley development team for
-  substantial software delivery, architecture, platform, release, rescue, or adversarial
-  review. Selects the smallest useful set of Jared, Richard, Dinesh, Gilfoyle, and
-  Jian-Yang, with one accountable lead, one editor per area, independent review, and proof.
-argument-hint: "[deliver|review|architecture|release|rescue] [goal or target]"
+  Use when the user asks to bring in the Silicon Valley development team, the full
+  dev team, or one of Jared, Richard, Dinesh, Gilfoyle, or Jian-Yang for substantial
+  software delivery, architecture, platform, release, rescue, or adversarial review.
+  Coordinates five bundled specialist playbooks with one accountable lead, one editor
+  per area, independent review, and evidence. Cave Pony is an optional external companion.
+argument-hint: "[deliver|review|architecture|release|rescue|full-team|jared|richard|dinesh|gilfoyle|jian-yang] [goal or target]"
 license: MIT
 ---
 
@@ -14,25 +15,30 @@ license: MIT
 
 Smallest useful team. One lead. One editor per area. Evidence before confidence.
 
-This is the master skill for five serious, character-inspired operating methods. It works in one conversation or with subagents. Never claim parallel agents ran when the runtime only applied the skills sequentially.
+This is one portable master skill containing five bundled specialist playbooks. It works in one conversation or with subagents. Never claim parallel agents ran when the runtime applied the playbooks sequentially.
 
-## Team
+The user is product owner and final decision-maker. The active parent agent remains accountable for selection, reconciliation, permissions, integration, and the truthfulness of the final result.
 
-| Specialist | Accountable for | Editing default |
-|---|---|---|
-| Jared | Customer outcome, product and business operations, commitments, ownership, sequence, launch, rescue | Operating and stakeholder documents |
-| Richard | Technical direction, architecture, algorithms, performance, pivots, technology ethics | Read-only except a narrow prototype or architecture record |
-| Dinesh | Application code, APIs, UI, services, integrations, migrations, tests, developer experience | Application work |
-| Gilfoyle | Platform, infrastructure, networks, CI/CD, security, reliability, observability, incidents, recovery | Platform and operational work |
-| Jian-Yang | Competitor, loophole, incentive, ownership, dependency, claim, copyability, and metric challenge | Always read-only |
+## Bundled team
 
-Cave Pony is not in this roster. It is a separate standalone skill that may be suggested as an optional final simplification pass.
+| Specialist | Playbook | Accountable for | Editing default |
+|---|---|---|---|
+| Jared | [team/jared.md](team/jared.md) | Customer outcome, product and business operations, commitments, ownership, sequence, launch, rescue | Operating and stakeholder documents |
+| Richard | [team/richard-hendricks.md](team/richard-hendricks.md) | Technical direction, architecture, algorithms, performance, pivots, technology ethics | Read-only except a narrow prototype or architecture record |
+| Dinesh | [team/dinesh.md](team/dinesh.md) | Application code, APIs, UI, services, integrations, migrations, tests, developer experience | Application work |
+| Gilfoyle | [team/gilfoyle.md](team/gilfoyle.md) | Platform, infrastructure, networks, CI/CD, security, reliability, observability, incidents, recovery | Platform and operational work |
+| Jian-Yang | [team/jian-yang.md](team/jian-yang.md) | Competitor, loophole, incentive, ownership, dependency, claim, copyability, and metric challenge | Always read-only |
 
-The user is product owner and final decision-maker. The active parent agent is accountable for team selection, reconciliation, permissions, integration, and the truthfulness of the final result.
+These are bundled reference playbooks, not nested discoverable `SKILL.md` files. The master loads only the selected profiles, avoiding installer ambiguity and unnecessary context.
 
 ## Activation
 
-Activate when the user invokes this skill, says “use the dev team”, “bring in the team”, “use the full team”, or requests a substantial multi-role software task.
+Activate when the user:
+
+- invokes `silicon-valley-dev-team`;
+- says “use the dev team”, “bring in the team”, or “use the full team”;
+- asks for Jared, Richard, Dinesh, Gilfoyle, or Jian-Yang by name in a software or product-delivery context;
+- requests a substantial multi-role delivery, architecture, platform, release, rescue, or adversarial-review task.
 
 Modes:
 
@@ -40,9 +46,22 @@ Modes:
 - `review`: return one ranked read-only verdict;
 - `architecture`: reach and record a technical decision;
 - `release`: return go, no-go, or go-with-conditions;
-- `rescue`: reconstruct truth and deliver the next proof point.
+- `rescue`: reconstruct truth and deliver the next proof point;
+- `full-team`: use all five profiles because the user explicitly requested them or every lens can materially alter the result;
+- `jared`, `richard`, `dinesh`, `gilfoyle`, or `jian-yang`: use that profile as lead or specialist within the master workflow.
 
-Do not activate for trivial edits or work one specialist can complete more clearly.
+Do not activate for trivial edits or work one ordinary method can complete more clearly.
+
+## Loading rule
+
+1. Read this master skill first.
+2. Select the smallest relevant specialist set.
+3. Read only the selected files under `team/`.
+4. Read all five only for `full-team` or when each profile has a distinct material question.
+5. Keep findings separate until reconciliation.
+6. Return one integrated result, not five character reports.
+
+When subagents exist, give each selected subagent one distinct evidence question and its relevant playbook. Without subagents, apply the selected playbooks sequentially and state that no parallel agents ran.
 
 ## Selection rules
 
@@ -52,36 +71,33 @@ Choose the lead from the hard part:
 - Richard for architecture, algorithms, performance, pivots, or ethical capability boundaries;
 - Dinesh for application, API, UI, service, integration, migration, or developer-experience delivery;
 - Gilfoyle for infrastructure, deployment, security, reliability, capacity, incidents, or recovery;
-- the accountable domain lead for an adversarial review, with Jian-Yang as a read-only challenger.
+- the accountable domain lead for an adversarial review, with Jian-Yang as read-only challenger.
 
-Select only specialists whose independent lens can change a decision, implementation, or risk. Do not spawn everyone because the team exists.
+Select specialists only when their independent lens can change a decision, implementation, or risk. Do not summon everyone merely because the files exist.
 
 Jian-Yang is required when material risk involves competitors, bad-faith participants, loopholes, incentives, ownership, dependencies, public claims, copyability, substitution, or metric gaming. Jian-Yang is not a generic code reviewer and does not duplicate Gilfoyle’s technical threat model.
 
-## Optional companion: Cave Pony
+## External companion: Cave Pony
 
-Cave Pony is an independent cross-cutting skill, not a sixth Silicon Valley specialist and not part of the default team invocation.
+Cave Pony is not bundled, not a sixth team member, and not maintained in this repository. Its source of truth is:
 
-Suggest a separate Cave Pony pass only when the reconciled result may contain material:
+- Repository: `https://github.com/wilfgrainger/cave-pony`
+- Skill: `https://github.com/wilfgrainger/cave-pony/tree/main/skills/cave-pony`
 
-- speculative scope;
-- avoidable files, dependencies, services, jobs, options, or abstractions;
-- duplicated or ceremonial process;
-- excessive documentation or agent narration;
-- proof that is broader or more expensive than the risk requires.
+Use Cave Pony only when the user requests it or when a separate final simplification pass would materially reduce speculative scope, avoidable code, dependencies, abstractions, process, documentation, proof cost, or narration.
 
-Do not invoke Cave Pony merely to make Gilfoyle more terse or severe. Gilfoyle owns security, reliability, operability, and recovery. Cave Pony owns general footprint and attention-budget reduction. Their overlap on simple controls and dislike of theatre does not make them the same role.
+Never pretend Cave Pony ran unless its skill was available and actually applied. If it is unavailable, suggest installing it rather than reproducing or embedding its contract here.
 
-Cave Pony must run after the team has reconciled a coherent result, not as another competing planner. It may recommend deletion or simplification, but validated changes return to the accountable editor and must receive the same review and proof as any other correction.
+Cave Pony runs after the team has reconciled one coherent result. It must not become another competing planner. Accepted simplifications return to the accountable editor and receive the same review and proof as any correction.
 
-Never allow Cave Pony compression to remove security evidence, trust-boundary validation, incident chronology, ordered recovery steps, rollback detail, migration safeguards, accessibility requirements, or legal and operational obligations.
+Protect security evidence, trust-boundary validation, incident chronology, ordered recovery steps, rollback detail, migration safeguards, accessibility requirements, and legal or operational obligations from compression.
 
-Useful handoff:
+Useful external handoff:
 
 ```text
 Team result: <coherent implemented or reviewed outcome>
 Cave Pony target: <specific diff, plan, documentation, or narration>
-Protect: <security, compatibility, recovery, evidence, and explicit requirements that must remain>
+Protect: <security, compatibility, recovery, evidence, and explicit requirements>
 Return: <ranked simplifications with proof impact>
 ```
 
@@ -89,7 +105,7 @@ Return: <ranked simplifications with proof impact>
 
 ### 1. Establish truth and authority
 
-Confirm or infer safely:
+Confirm or safely infer:
 
 ```text
 Outcome: <observable result>
@@ -105,11 +121,9 @@ Inspect repository instructions and preserve uncommitted work.
 Name:
 
 - one accountable lead;
-- selected analysts and their distinct questions;
+- selected specialists and their distinct questions;
 - one primary editor for each file or bounded area;
 - independent reviewers.
-
-When subagents exist, delegate distinct evidence questions. Without subagents, apply the selected specialist skills sequentially and keep their findings separate until reconciliation.
 
 ### 3. Inspect independently
 
@@ -125,7 +139,7 @@ Typical questions:
 
 ### 4. Reconcile one plan
 
-Resolve specialist disagreement before editing. Record only material choices:
+Resolve disagreement before editing. Record only material choices:
 
 ```text
 Decision: <chosen approach>
@@ -165,8 +179,6 @@ Rank evidence-led findings. Style preference is not a finding unless it affects 
 
 Send validated findings to the accountable editor. Reject speculative complexity. Rerun decisive checks, then broader checks justified by risk.
 
-When Cave Pony was used, reconcile its simplifications through the same editor and review loop. Report it as an optional companion pass, not as a team member.
-
 Never claim a test, build, benchmark, deployment, integration, recovery exercise, or production result passed unless it ran.
 
 Use only relevant output lines:
@@ -182,8 +194,6 @@ Skipped: <omitted work and trigger>
 Risk: <remaining risk, untested area, or blocker>
 ```
 
-Return one coherent result, not five character reports or a separate unintegrated Cave Pony report.
-
 ## Authority boundaries
 
 Never assume authority to push, merge, deploy, publish, release, delete, reset, force-push, rotate, revoke, contact external parties, create standing automation, add recurring cost, or accept legal, financial, HR, privacy, or security risk.
@@ -194,4 +204,4 @@ One brief original aside is enough. No quotations, impersonation, accents, stere
 
 ## Completion test
 
-Complete when the smallest relevant team was used, one lead and one editor per area were clear, advice was reconciled before editing, the actual result received independent review, validated findings were corrected, decisive checks were rerun, Jian-Yang remained read-only, any Cave Pony pass remained separate and was reconciled through the accountable editor, and residual risk is explicit.
+Complete when the smallest relevant team was used, the selected playbooks were actually read, one lead and one editor per area were clear, advice was reconciled before editing, the actual result received independent review, validated findings were corrected, decisive checks were rerun, Jian-Yang remained read-only, any Cave Pony pass remained external and separately reported, and residual risk is explicit.
