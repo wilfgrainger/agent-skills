@@ -4,7 +4,7 @@ Portable operating methods for software engineering, product delivery, company o
 
 This repository now contains one installable product: **Silicon Valley Dev Team**. Five character-inspired specialist playbooks are bundled inside one master skill so one installation provides the whole team.
 
-[Cave Pony](https://github.com/wilfgrainger/cave-pony) is a separate project with its own repository, releases, tests, and installation path. This repository only documents how the team can hand a completed result to it as an optional companion pass.
+[Cave Pony](https://github.com/wilfgrainger/cave-pony) is a separate project with its own repository, tests, versioning, and installation path. This repository only documents how the team can hand a completed result to it as an optional companion pass.
 
 The character-inspired methods are professional workflows, not impersonations. Harmful or comic behaviour is converted into failure modes to resist.
 
